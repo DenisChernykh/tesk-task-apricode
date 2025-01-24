@@ -60,7 +60,8 @@ export const removeTask = (tasks: Tasks, id: number): Tasks => {
 export const updateParentCompletion = (tasks: Tasks): Tasks => {
   const updateCompletion = (task: Task): Task => {
     if (task.subTask.length > 0) {
-      const allCompleted = task.subTask.every((sub) => sub.isCompleted);
+      const updatedSubTasks = task.subTask.map(updateCompletion);
+      const allCompleted = updatedSubTasks.every((sub) => sub.isCompleted);
       return {
         ...task,
         subTask: task.subTask.map(updateCompletion),
